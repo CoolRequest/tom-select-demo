@@ -1,0 +1,61 @@
+<h2>Replacing Select2 with tom-select + stimulus</h2>
+
+<%= simple_form_for :city, url: cities_path, method: 'GET' do |f| %>
+
+<div class=" mt-4 border bg-light px-4 py-3 rounded-3">
+  <h5 class="fw-bolder text-primary">1. Simple Case</h5>
+
+  <%= f.input :city,
+              collection: City.to_select,
+              input_html: {
+                data: {
+                  controller: 'tom-select'
+                }
+              } %>
+
+</div>
+
+<div class=" mt-4 border bg-light px-4 py-3 rounded-3">
+  <h5 class="fw-bolder text-primary">2. Autocomplete</h5>
+
+  <%= f.input :city,
+              collection: [],
+              input_html: {
+                data: {
+                  controller: 'tom-select',
+                  tom_select_url_value: autocomplete_cities_path
+                }
+              } %>
+
+</div>
+
+<div class=" mt-4 border bg-light px-4 py-3 rounded-3">
+  <h5 class="fw-bolder text-primary">3. Filter other Select</h5>
+
+  <div class="row" data-controller="ts--filter"
+                   data-ts--filter-url-value="<%= filter_cities_path %>">
+
+    <div class="col-3">
+      <%= f.input :state,
+                  collection: City.states_to_select,
+                  input_html: {
+                    class: 'form-select',
+                    data: {
+                      ts__filter_target: 'filter'
+                    }
+                  } %>
+    </div>
+    <div class="col">
+      <%= f.input :city,
+                  collection: [],
+                  input_html: {
+                    data: {
+                      ts__filter_target: 'other'
+                    }
+                  } %>
+    </div>
+  </div>
+
+</div>
+
+<% end %>
