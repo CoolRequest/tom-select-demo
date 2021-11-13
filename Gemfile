@@ -12,7 +12,7 @@ gem "rails", github: 'rails/rails'
 gem "propshaft", ">= 0.1.7"
 
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", "~> 1.4"
+gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
