@@ -4,7 +4,7 @@ class CitiesController < ApplicationController
 
   def autocomplete
     list = City.order(:name)
-               .where("name like :q", q: "%#{params[:q]}%")
+               .where("name ilike :q", q: "%#{params[:q]}%")
 
     render json: list.map { |u| { text: u.name, value: u.id } }
   end
