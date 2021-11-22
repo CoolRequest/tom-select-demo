@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example app showing examples of using [tom-select](https://tom-select.js.org/) in a Rails 7 app with stimulus, as described in [this blog post]().
 
-Things you may want to cover:
+See it in action at [http://tom-select.herokuapp.com/](http://tom-select.herokuapp.com/)
 
-* Ruby version
+## Prerequisites
+* Ruby 3.0.2
+* foreman
+* A postgresql database
 
-* System dependencies
+## How to get it running in development
 
-* Configuration
+Clone this Repository
 
-* Database creation
+Install Dependencies:
 
-* Database initialization
+`bundle`
 
-* How to run the test suite
+`yarn`
 
-* Services (job queues, cache servers, search engines, etc.)
+Create the database
 
-* Deployment instructions
+`bundle exec rake db:create`
 
-* ...
+`bundle exec rake db:migrate`
+
+`bundle exec rake db:seed`
+
+Start the Application:
+
+`foreman start -f Procfile.dev`
