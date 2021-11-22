@@ -1,22 +1,19 @@
 import { Controller } from "@hotwired/stimulus"
-import TomSelect from "tom-select"
-import { get } from '@rails/request.js'
+import { get }        from '@rails/request.js'
+import TomSelect      from "tom-select"
 
 // Connects to data-controller="ts--filter"
 export default class extends Controller {
   static targets = [ "filter", "other" ]
-  static values = {
-    url: String
-  }
+  static values  = { url: String }
 
   connect() {
 
     this.filterTarget.addEventListener('change', ev => {
-      if (this.selectedFilter) {
+      if(this.selectedFilter)
         this.fetchItems()
-      } else {
-        this.clearItems(this.otherTarget)
-      }
+      else
+        this.clearItems()
     })
 
     if (this.selectedFilter) this.fetchItems()
@@ -28,23 +25,20 @@ export default class extends Controller {
       responseKind: 'json'
     })
 
-    if(response.ok) {
+    if(response.ok)
       this.setItems(await response.json)
-    } else {
+    else
       console.log(response)
-    }
-
   }
 
   setItems(items) {
-    this.getTomSelect.clear()
-    this.getTomSelect.clearOptions()
-    this.getTomSelect.addOptions(items)
+    this.clearItems()
+    this.tomSelect.addOptions(items)
   }
 
-  clearItems(target) {
-    target.innerHTML = "";
-    $(target).val(null).trigger('change');
+  clearItems() {
+    this.tomSelect.clear()
+    this.tomSelect.clearOptions()
   }
 
   get selectedFilter() {
@@ -55,13 +49,13 @@ export default class extends Controller {
     return this.data.get('pre-selected')
   }
 
-  get getTomSelect() {
-    if(this.tomSelect === undefined) {
-      this.tomSelect = new TomSelect(this.otherTarget, {
-        plugins: [ 'clear_button'],
+  get tomSelect() {
+    if(this._tomSelect === undefined) {
+      this._tomSelect = new TomSelect(this.otherTarget, {
+        plugins: [ 'clear_button']
       })
     }
-    return this.tomSelect
+    return this._tomSelect
   }
 
 }

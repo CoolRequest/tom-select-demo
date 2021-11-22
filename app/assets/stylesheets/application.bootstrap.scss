@@ -5,3 +5,28 @@
 body {
   font-family: 'Source Sans Pro', sans-serif;
 }
+
+.ts-wrapper .option .text {
+	display: block;
+  font-weight: 600;
+}
+.ts-wrapper .option .sub {
+	font-size: 80%;
+	display: block;
+	color: #999;
+}
+
+.ts-wrapper .item .text {
+	display: inline-block;
+  font-weight: 600;
+}
+.ts-wrapper .item .sub {
+	font-size: 85%;
+	display: inline-block;
+	color: #999;
+  margin-left: 0.36rem;
+}
+
+.ts-control .item {
+  align-items: baseline;
+}

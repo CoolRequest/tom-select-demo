@@ -1,18 +1,18 @@
 <h2>Replacing Select2 with tom-select + stimulus</h2>
 
-<%= simple_form_for :city, url: cities_path, method: 'GET' do |f| %>
+<%= form_for :city, url: cities_path, method: 'GET' do |f| %>
 
 <div class=" mt-4 border bg-light px-4 py-3 rounded-3">
   <h5 class="fw-bolder text-primary">1. Simple Case</h5>
   <div class="row">
     <div class="col-4">
-      <%= f.input :city,
-                  collection: City.to_select,
-                  input_html: {
+      <%= f.label(:city, 'Choose City') %>
+      <%= f.select :city,
+                    City.to_select,
+                    { include_blank: true },
                     data: {
                       controller: 'ts--select'
-                    }
-                  } %>
+                    } %>
     </div>
     <div class="col">
       <script src="https://gist.github.com/sandrods/a7e082aa1dc4f14a4e666fe254419f8d.js?file=ts-01.html.erb"></script>
@@ -20,18 +20,18 @@
   </div>
 </div>
 
-<div class="mt-4 border bg-light px-4 py-3 rounded-3">
-  <h5 class="fw-bolder text-primary">2. Autocomplete</h5>
+<div class=" mt-4 border bg-light px-4 py-3 rounded-3">
+  <h5 class="fw-bolder text-primary">2. Custom HTML</h5>
   <div class="row">
     <div class="col-4">
-      <%= f.input :city,
-                  collection: [],
-                  input_html: {
+      <%= f.label(:city2, 'Choose City') %>
+      <%= f.select :city2,
+                    [],
+                    { include_blank: true },
                     data: {
-                      controller: 'ts--search',
-                      ts__search_url_value: autocomplete_cities_path
-                    }
-                  } %>
+                      controller: 'ts--select',
+                      ts__select_options_value: City.to_json
+                    } %>
     </div>
     <div class="col">
       <script src="https://gist.github.com/sandrods/a7e082aa1dc4f14a4e666fe254419f8d.js?file=ts-02.html.erb"></script>
@@ -40,29 +40,47 @@
 </div>
 
 <div class="mt-4 border bg-light px-4 py-3 rounded-3">
-  <h5 class="fw-bolder text-primary">3. Filter other Select</h5>
+  <h5 class="fw-bolder text-primary">3. Remote - Autocomplete</h5>
+  <div class="row">
+    <div class="col-4">
+      <%= f.label(:search_city, 'Search City') %>
+      <%= f.select :search_city, [], {},
+                    placeholder: 'Type to search',
+                    data: {
+                      controller: 'ts--search',
+                      ts__search_url_value: autocomplete_cities_path
+                    } %>
+    </div>
+    <div class="col">
+      <script src="https://gist.github.com/sandrods/a7e082aa1dc4f14a4e666fe254419f8d.js?file=ts-03.html.erb"></script>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4 border bg-light px-4 py-3 rounded-3">
+  <h5 class="fw-bolder text-primary">4. Filter other Select</h5>
 
   <div class="row" data-controller="ts--filter"
                    data-ts--filter-url-value="<%= filter_cities_path %>">
 
     <div class="col-4">
-      <%= f.input :state,
-                  collection: City.states_to_select,
-                  input_html: {
+      <%= f.label(:state) %>
+      <%= f.select :state,
+                    City.states_to_select,
+                    { include_blank: true },
                     class: 'form-select mb-3',
                     data: {
                       ts__filter_target: 'filter'
-                    } } %>
-
-      <%= f.input :city,
-                  collection: [],
-                  input_html: {
+                    } %>
+      <%= f.label(:search_city, 'City') %>
+      <%= f.select :filter_city, [], {},
+                    class: 'form-select mb-3',
                     data: {
                       ts__filter_target: 'other'
-                    } } %>
+                    } %>
     </div>
     <div class="col">
-      <script src="https://gist.github.com/sandrods/a7e082aa1dc4f14a4e666fe254419f8d.js?file=ts-03.html.erb"></script>
+      <script src="https://gist.github.com/sandrods/a7e082aa1dc4f14a4e666fe254419f8d.js?file=ts-04.html.erb"></script>
     </div>
   </div>
 

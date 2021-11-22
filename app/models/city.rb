@@ -8,4 +8,8 @@ class City < ApplicationRecord
     City.pluck(:state).uniq.sort
   end
 
+  def self.to_json
+    City.order(:name).map { |u| { text: u.name, value: u.id, sub: u.state } }
+  end
+
 end

@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
   resources :cities do
-    get :autocomplete, on: :collection
-    get :filter, on: :collection
+    collection do
+      get :autocomplete
+      get :filter
+      get :load
+    end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

@@ -3,9 +3,6 @@
 
 import { application } from "./application"
 
-import HelloController from "./hello_controller.js"
-application.register("hello", HelloController)
-
 import Ts__FilterController from "./ts/filter_controller.js"
 application.register("ts--filter", Ts__FilterController)
 
