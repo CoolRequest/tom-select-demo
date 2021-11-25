@@ -2,11 +2,10 @@ import { Controller } from "@hotwired/stimulus"
 import { get }        from '@rails/request.js'
 import TomSelect      from "tom-select"
 
-// Connects to data-controller="tom-select"
+// Connects to data-controller="ts--search"
 export default class extends Controller {
   static values = { url: String }
 
-// Connects to data-controller="ts--search"
   connect() {
     this.element.setAttribute( "autocomplete", "random" );
 

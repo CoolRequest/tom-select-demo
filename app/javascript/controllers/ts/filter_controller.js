@@ -50,11 +50,10 @@ export default class extends Controller {
   }
 
   get tomSelect() {
-    if(this._tomSelect === undefined) {
-      this._tomSelect = new TomSelect(this.otherTarget, {
-        plugins: [ 'clear_button']
-      })
-    }
+    this._tomSelect ||= new TomSelect(this.otherTarget, {
+      plugins: [ 'clear_button']
+    })
+
     return this._tomSelect
   }
 
